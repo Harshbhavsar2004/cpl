@@ -1,12 +1,26 @@
 def find_winner(n):
-    low = 1
-    high = 1
-    turn = 0  # 0 for Stan, 1 for Ollie
-    while high < n:
-        low *= 2
-        high *= 9
+    # Initial product is 1
+    product = 1
+    # 0 = Stan's turn, 1 = Ollie's turn
+    turn = 0
+
+    # Loop until product reaches or exceeds n
+    while product < n:
+        if turn == 0:
+            # Stan multiplies by 2
+            product *= 2
+        else:
+            # Ollie multiplies by 9
+            product *= 9
+        # Check if game has ended
+        if product >= n:
+            break
+        # Switch turn
         turn = 1 - turn
-    return "Stan wins." if turn == 1 else "Ollie wins."
+
+    # Whoever made the last move is the winner
+    return "Stan wins." if turn == 0 else "Ollie wins."
+
 
 def main():
     print("Enter values of n (press Enter or Ctrl+D to stop):")
@@ -19,10 +33,10 @@ def main():
             if not (1 < n < 4294967295):
                 print("Invalid input. n must be between 2 and 4294967294.")
                 continue
-            result = find_winner(n)
-            print(result)
+            print(find_winner(n))
     except EOFError:
         pass
+
 
 if __name__ == "__main__":
     main()
